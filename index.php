@@ -12,10 +12,10 @@ $currencyCodes = array(
 );
 
 // Set access key and parameters
-$access_key = 'ACCESS KEY';
+$access_key = '';
+
 $live = 'live';
 $list = 'list';
-
 
 // Store data
 $json = file_get_contents('http://www.apilayer.net/api/'.$list.'?access_key='.$access_key.'&format=1');
@@ -23,11 +23,8 @@ $json = file_get_contents('http://www.apilayer.net/api/'.$list.'?access_key='.$a
 // Decode Json into an object
 $object = json_decode($json, true);
 
+// Array of currency codes and names
 $currenciesList = $object['currencies'];
-
-// echo '<pre>';
-// var_dump($json);
-// echo '</pre>';
 
 // Iterate over object and echo currency codes that match the codes in array
 foreach ($currenciesList as $key => $value) {
