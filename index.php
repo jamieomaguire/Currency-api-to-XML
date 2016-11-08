@@ -12,7 +12,7 @@ $currencyCodes = array(
 );
 
 // Set access key and parameters
-$access_key = '46814163859edfcfba1033626231638c';
+$access_key = 'ACCESS KEY';
 $live = 'live';
 $list = 'list';
 
