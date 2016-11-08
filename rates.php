@@ -12,7 +12,7 @@ $currencyCodes = array(
 );
 
 // Set access key and parameters
-$access_key = '46814163859edfcfba1033626231638c';
+$access_key = '';
 
 $live = 'live';
 $list = 'list';
@@ -26,7 +26,10 @@ $object = json_decode($json, true);
 // Array of currency ISO codes and names
 // $currenciesList = $object['currencies'];
 $rates = $object['quotes'];
-$timestamp = $object['timestamp'];
+$ts = $object['timestamp'];
+
+// XML variable
+$xml = new SimpleXMLElement('<rates />');
 
 
 // Iterate over object and echo currency codes that match the codes in array
@@ -34,7 +37,14 @@ foreach ($rates as $key => $value) {
     foreach ($currencyCodes as $ccode) {
         $keyCode = substr($key, -3);
         if ($keyCode == $ccode) {
-            echo $keyCode . ' : ' . $value . ' timestamp: ' . $timestamp . '<br />';
+            // echo $keyCode . ' : ' . $value . ' timestamp: ' . $ts . '<br />';
+            $rate = $xml->addChild('rate');
+            $rate->addAttribute('code', $keyCode);
+            $rate->addAttribute('value', $value);
+            $rate->addAttribute('ts', $ts);
         }
     }
 }
+$xml->asXML("./rates.xml");
+
+// <rate code="ABD" value="123" ts="unixtimestamp" />
